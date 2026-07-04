@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useInView } from "react-intersection-observer"
 import { motion, useAnimation } from "framer-motion"
 
-const Anim = ({ children }) => {
+const AnimMotion = ({ children }) => {
   const controls = useAnimation()
   const [ref, inView] = useInView({
     threshold: 0.25,
@@ -28,6 +28,14 @@ const Anim = ({ children }) => {
       {children}
     </motion.div>
   )
+}
+
+const Anim = ({ children }) => {
+  if (typeof window === "undefined") {
+    return <div>{children}</div>
+  }
+
+  return <AnimMotion>{children}</AnimMotion>
 }
 
 export default Anim
