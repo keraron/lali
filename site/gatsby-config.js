@@ -5,12 +5,11 @@
  */
 
 module.exports = {
-  pathPrefix: `/lali`,
   siteMetadata: {
     title: `Koop`,
     titleTemplate: `%s | A simple MDX blog`,
     description: `Built using GatsbyJS and serving content using markdown`,
-    siteUrl: `https://keraron.github.io/lali`, // Cannot include a trailing slash
+    siteUrl: `https://lali.cat`, // Cannot include a trailing slash
     image: `/images/macbook.jpg`,
     siteAuthor: `Morgan Baker`,
     siteAuthorUrl: `https://www.morganbaker.dev`,
