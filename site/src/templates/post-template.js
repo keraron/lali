@@ -2,7 +2,6 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
-import { MDXRenderer } from "gatsby-plugin-mdx"
 import styled from "styled-components"
 import PropTypes from "prop-types"
 
@@ -19,9 +18,8 @@ const PostTemplateStyles = styled.section`
   }
 `
 
-const PostTemplate = ({ data }) => {
+const PostTemplate = ({ data, children }) => {
   const { title, date, author, image } = data.mdx.frontmatter
-  const { body } = data.mdx
   const img = getImage(image.childImageSharp.gatsbyImageData)
 
   return (
@@ -38,9 +36,7 @@ const PostTemplate = ({ data }) => {
         </h2>
 
         <GatsbyImage image={img} alt="Blog Post" />
-        <div className="post__body">
-          <MDXRenderer>{body}</MDXRenderer>
-        </div>
+        <div className="post__body">{children}</div>
         <hr class="separator" />
         <h2>
           Posted on <span>{date}</span>
@@ -52,8 +48,8 @@ const PostTemplate = ({ data }) => {
 }
 
 export const query = graphql`
-  query getPost($slug: String!) {
-    mdx(frontmatter: { slug: { eq: $slug } }) {
+  query getPost($id: String!) {
+    mdx(id: { eq: $id }) {
       frontmatter {
         title
         slug
@@ -65,7 +61,6 @@ export const query = graphql`
           }
         }
       }
-      body
     }
   }
 `
