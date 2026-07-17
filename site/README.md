@@ -1,6 +1,6 @@
 # Lali
 
-A single dark page. Click anywhere and lali floats in from the top.
+Click anywhere to summon Lali.
 
 ## Development
 
