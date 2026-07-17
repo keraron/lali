@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react"
 import styled, { createGlobalStyle } from "styled-components"
 import { motion, useAnimation } from "framer-motion"
 import Seo from "../components/Seo"
+import { gothicFont } from "../styles/fonts"
 import "normalize.css"
 
 const IMAGE_SIZE = 320
@@ -12,14 +13,26 @@ const PageStyles = createGlobalStyle`
     padding: 0;
     overflow: hidden;
     background: #0a0a0a;
+    font-family: ${gothicFont};
   }
 `
 
 const Page = styled.div`
   position: fixed;
   inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #0a0a0a;
   cursor: pointer;
+`
+
+const Hint = styled.p`
+  margin: 0;
+  color: #666;
+  font-size: 1.25rem;
+  pointer-events: none;
+  user-select: none;
 `
 
 const FloatingLali = ({ id, x, onDone }) => {
@@ -92,6 +105,7 @@ const Index = () => {
       <PageStyles />
       <Seo title="Lali" />
       <Page onClick={handleClick} role="presentation">
+        <Hint>Click anywhere to summon Lali.</Hint>
         {lalis.map(({ id, x }) => (
           <FloatingLali key={id} id={id} x={x} onDone={removeLali} />
         ))}

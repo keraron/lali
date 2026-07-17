@@ -2,6 +2,7 @@ import React from "react"
 import { Link } from "gatsby"
 import styled, { createGlobalStyle } from "styled-components"
 import Seo from "../components/Seo"
+import { gothicFont } from "../styles/fonts"
 import "normalize.css"
 
 const PageStyles = createGlobalStyle`
@@ -10,7 +11,7 @@ const PageStyles = createGlobalStyle`
     padding: 0;
     background: #0a0a0a;
     color: #fff;
-    font-family: system-ui, sans-serif;
+    font-family: ${gothicFont};
   }
 `
 

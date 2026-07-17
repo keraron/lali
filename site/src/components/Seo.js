@@ -39,6 +39,16 @@ const SEO = ({ title, description, lang, image }) => {
       <meta name="twitter:title" content={seo.title} />
       <meta name="twitter:description" content={seo.description} />
       <meta name="twitter:image" content={seo.image} />
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossOrigin="anonymous"
+      />
+      <link
+        href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap"
+        rel="stylesheet"
+      />
     </Helmet>
   )
 }
