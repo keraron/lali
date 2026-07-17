@@ -1,48 +1,10 @@
-/**
- * Configure your Gatsby site with this file.
- *
- * See: https://www.gatsbyjs.org/docs/gatsby-config/
- */
-
 module.exports = {
   siteMetadata: {
-    title: `Koop`,
-    titleTemplate: `%s | A simple MDX blog`,
-    description: `Built using GatsbyJS and serving content using markdown`,
-    siteUrl: `https://lali.cat`, // Cannot include a trailing slash
-    image: `/images/macbook.jpg`,
-    siteAuthor: `Morgan Baker`,
-    siteAuthorUrl: `https://www.morganbaker.dev`,
-    twitterUsername: `@twitter`,
-    facebookName: `https://www.facebook.com`,
-    instagramName: `https://www.instagram.com`,
-    linkedinName: `https://www.linkedin.com/in/morgan-baker-development`,
+    title: `Lali`,
+    titleTemplate: `%s`,
+    description: `Click for lali`,
+    siteUrl: `https://lali.cat`,
+    image: `/lali.png`,
   },
-  plugins: [
-    `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-sitemap`,
-    `gatsby-plugin-image`,
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `posts`,
-        path: `src/posts`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-mdx`,
-      options: {
-        gatsbyRemarkPlugins: [
-          {
-            resolve: `gatsby-remark-images`,
-          },
-        ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-styled-components`,
-    },
-  ],
+  plugins: [`gatsby-plugin-react-helmet`, `gatsby-plugin-styled-components`],
 }

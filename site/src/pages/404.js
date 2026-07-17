@@ -1,15 +1,42 @@
 import React from "react"
 import { Link } from "gatsby"
+import styled, { createGlobalStyle } from "styled-components"
+import Seo from "../components/Seo"
+import "normalize.css"
 
-const Error = () => {
-  return (
-    <>
-      <h1>This page has disappeared</h1>
-      <Link className="btn" to="/">
-        Return Home
-      </Link>
-    </>
-  )
-}
+const PageStyles = createGlobalStyle`
+  body {
+    margin: 0;
+    padding: 0;
+    background: #0a0a0a;
+    color: #fff;
+    font-family: system-ui, sans-serif;
+  }
+`
 
-export default Error
+const Page = styled.div`
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #0a0a0a;
+`
+
+const HomeLink = styled(Link)`
+  color: #fff;
+`
+
+const NotFound = () => (
+  <>
+    <PageStyles />
+    <Seo title="Not found" />
+    <Page>
+      <h1>Not found</h1>
+      <HomeLink to="/">Go home</HomeLink>
+    </Page>
+  </>
+)
+
+export default NotFound
