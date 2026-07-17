@@ -25,6 +25,7 @@ const Page = styled.div`
   justify-content: center;
   background: #0a0a0a;
   cursor: pointer;
+  touch-action: manipulation;
 `
 
 const Hint = styled.p`
@@ -37,8 +38,22 @@ const Hint = styled.p`
 
 const FloatingLali = ({ id, x, onDone }) => {
   const controls = useAnimation()
+  const imgRef = useRef(null)
+  const [ready, setReady] = useState(false)
+
+  const markReady = useCallback(() => {
+    setReady(true)
+  }, [])
 
   useEffect(() => {
+    if (imgRef.current?.complete) {
+      markReady()
+    }
+  }, [markReady])
+
+  useEffect(() => {
+    if (!ready) return
+
     let cancelled = false
 
     const run = async () => {
@@ -50,31 +65,36 @@ const FloatingLali = ({ id, x, onDone }) => {
       if (cancelled) return
 
       await controls.start({
-        y: "-100%",
+        y: -IMAGE_SIZE,
         transition: { duration: 1, ease: "easeIn" },
       })
 
       if (!cancelled) onDone(id)
     }
 
-    controls.set({ y: "-100%" })
+    controls.set({ y: -IMAGE_SIZE })
     run()
 
     return () => {
       cancelled = true
     }
-  }, [controls, id, onDone])
+  }, [controls, id, onDone, ready])
 
   return (
     <motion.img
+      ref={imgRef}
       src="/lali.png"
       alt=""
+      width={IMAGE_SIZE}
+      height={IMAGE_SIZE}
       draggable={false}
       animate={controls}
-      initial={{ y: "-100%" }}
+      initial={{ y: -IMAGE_SIZE }}
+      onLoad={markReady}
       style={{
         position: "fixed",
         width: IMAGE_SIZE,
+        height: IMAGE_SIZE,
         left: x - IMAGE_SIZE / 2,
         top: 0,
         pointerEvents: "none",
@@ -88,13 +108,21 @@ const Index = () => {
   const [lalis, setLalis] = useState([])
   const nextId = useRef(0)
 
-  const handleClick = useCallback((event) => {
+  const summonLali = useCallback((clientX) => {
     nextId.current += 1
     setLalis((current) => [
       ...current,
-      { id: nextId.current, x: event.clientX },
+      { id: nextId.current, x: clientX },
     ])
   }, [])
+
+  const handlePointerDown = useCallback(
+    (event) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return
+      summonLali(event.clientX)
+    },
+    [summonLali]
+  )
 
   const removeLali = useCallback((id) => {
     setLalis((current) => current.filter((lali) => lali.id !== id))
@@ -104,8 +132,8 @@ const Index = () => {
     <>
       <PageStyles />
       <Seo title="Lali" />
-      <Page onClick={handleClick} role="presentation">
-        <Hint>Click anywhere to summon Lali.</Hint>
+      <Page onPointerDown={handlePointerDown} role="presentation">
+        <Hint>Tap or click anywhere to summon Lali.</Hint>
         {lalis.map(({ id, x }) => (
           <FloatingLali key={id} id={id} x={x} onDone={removeLali} />
         ))}
